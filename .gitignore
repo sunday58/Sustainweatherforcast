@@ -10,5 +10,6 @@
 .DS_Store
 /build
 /captures
+/Keys.kt
 .externalNativeBuild
 .cxx

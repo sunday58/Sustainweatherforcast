@@ -6,7 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.sunday.sustainweatherforcast.R
+import com.sunday.sustainweatherforcast.data.ApixuWeatherApiService
+import kotlinx.android.synthetic.main.current_weather_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CurrentWeatherFragment : Fragment() {
 
@@ -26,8 +32,17 @@ class CurrentWeatherFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
         // TODO: Use the ViewModel
+
+        val apiService = ApixuWeatherApiService()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val currentWeatherResponse =
+                apiService.getCurrentWeather("London").await()
+            textView.text = currentWeatherResponse.toString()
+
+        }
     }
 
 }
