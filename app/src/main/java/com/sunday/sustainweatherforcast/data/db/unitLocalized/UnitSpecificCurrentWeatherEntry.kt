@@ -1,12 +1,15 @@
 package com.sunday.sustainweatherforcast.data.db.unitLocalized
 
+
 interface UnitSpecificCurrentWeatherEntry {
+    val feelslike: Int
+    val isDay: String
+    val precip: Int
     val temperature: Int
+    val visibility: Int
+    val weatherCode: Int
     val weatherDescriptions: List<String>
     val weatherIcons: List<String>
-    val windSpeed: Int
     val windDir: String
-    val precip: Int
-    val feelslike: Int
-    val visibility: Int
+    val windSpeed: Int
 }

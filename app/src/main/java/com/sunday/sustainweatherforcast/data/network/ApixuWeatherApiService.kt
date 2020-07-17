@@ -1,4 +1,4 @@
-package com.sunday.sustainweatherforcast.data
+package com.sunday.sustainweatherforcast.data.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.sunday.sustainweatherforcast.data.Keys.API_KEY
@@ -22,8 +22,10 @@ interface ApixuWeatherApiService {
     ): Deferred<CurrentWeatherResponse>
 
     companion object {
-        operator fun invoke(): ApixuWeatherApiService{
-//            ApixuWeatherApiService()
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ): ApixuWeatherApiService {
+
             val requestInterceptor = Interceptor{chain ->  
                 val url = chain.request()
                     .url()
@@ -39,6 +41,7 @@ interface ApixuWeatherApiService {
             }
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
+                .addInterceptor(connectivityInterceptor)
                 .build()
 
             return Retrofit.Builder()
