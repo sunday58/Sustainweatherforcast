@@ -1,4 +1,4 @@
-package com.sunday.sustainweatherforcast.data.response
+package com.sunday.sustainweatherforcast.data.db.entity
 
 
 import com.google.gson.annotations.SerializedName

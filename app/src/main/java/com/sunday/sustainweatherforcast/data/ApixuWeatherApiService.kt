@@ -1,9 +1,8 @@
 package com.sunday.sustainweatherforcast.data
 
-import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.sunday.sustainweatherforcast.data.Keys.API_KEY
-import com.sunday.sustainweatherforcast.data.response.CurrentWeatherResponse
+import com.sunday.sustainweatherforcast.data.network.response.CurrentWeatherResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
