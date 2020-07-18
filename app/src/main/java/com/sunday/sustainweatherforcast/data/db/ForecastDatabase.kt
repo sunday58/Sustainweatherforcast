@@ -12,7 +12,7 @@ import com.sunday.sustainweatherforcast.data.db.entity.CurrentWeatherEntryConver
 @Database(
     exportSchema = false,
     entities = [CurrentWeatherEntry::class],
-    version = 4
+    version = 5
 )
 @TypeConverters(CurrentWeatherEntryConverter::class)
 abstract class ForecastDatabase : RoomDatabase() {
@@ -29,6 +29,7 @@ abstract class ForecastDatabase : RoomDatabase() {
             Room.databaseBuilder(context.applicationContext,
                     ForecastDatabase::class.java,
                     "forecast.db")
+                .fallbackToDestructiveMigration()
                 .build()
     }
 }

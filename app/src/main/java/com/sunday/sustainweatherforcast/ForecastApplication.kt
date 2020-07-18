@@ -1,9 +1,12 @@
 package com.sunday.sustainweatherforcast
 
 import android.app.Application
+import androidx.preference.PreferenceManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.sunday.sustainweatherforcast.data.db.ForecastDatabase
 import com.sunday.sustainweatherforcast.data.network.*
+import com.sunday.sustainweatherforcast.data.provider.UnitProvider
+import com.sunday.sustainweatherforcast.data.provider.UnitProviderImpl
 import com.sunday.sustainweatherforcast.data.repository.ForecastRepository
 import com.sunday.sustainweatherforcast.data.repository.ForecastRepositoryImpl
 import com.sunday.sustainweatherforcast.ui.weather.current.CurrentWeatherViewModelFactory
@@ -25,12 +28,14 @@ class ForecastApplication : Application(), KodeinAware {
         bind() from singleton { ApixuWeatherApiService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
         bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(), instance()) }
-        bind() from provider { CurrentWeatherViewModelFactory(instance()) }
+        bind<UnitProvider>() with singleton { UnitProviderImpl(instance()) }
+        bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }
 
     }
 
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
     }
 }

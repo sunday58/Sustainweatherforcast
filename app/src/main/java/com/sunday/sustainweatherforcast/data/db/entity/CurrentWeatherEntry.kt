@@ -8,15 +8,15 @@ import com.google.gson.annotations.SerializedName
 @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
 @Entity(tableName = "current_weather")
 data class CurrentWeatherEntry(
-    @PrimaryKey(autoGenerate = true)
-    val feelslike: Int,
+    @PrimaryKey(autoGenerate = false)
+    val feelslike: Double,
     @SerializedName("is_day")
     val isDay: String,
-    val precip: Int,
-    val temperature: Int,
-    val visibility: Int,
+    val precip: Double,
+    val temperature: Double,
+    val visibility: Double,
     @SerializedName("weather_code")
-    val weatherCode: Int,
+    val weatherCode: Double,
     @TypeConverters(CurrentWeatherEntryConverter::class)
     @SerializedName("weather_descriptions")
     val weatherDescriptions: List<String>,
@@ -26,7 +26,7 @@ data class CurrentWeatherEntry(
     @SerializedName("wind_dir")
     val windDir: String,
     @SerializedName("wind_speed")
-    val windSpeed: Int
+    val windSpeed: Double
 ) {
 
 }
